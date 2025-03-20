@@ -7,7 +7,6 @@ const TodoList: React.FC = observer(() => {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [year, setYear] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
 
   const handleAddTodo = () => {
     if (name.trim() && surname.trim() && year.trim()) {
@@ -17,8 +16,6 @@ const TodoList: React.FC = observer(() => {
       setYear('');
     }
   };
-
-  const filteredTodos = todoStore.searchTodos(searchQuery);
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
@@ -80,14 +77,14 @@ const TodoList: React.FC = observer(() => {
       <h2 style={{ fontFamily: 'sans-serif', color: '#333', marginTop: '20px' }}>
         Активные задачи
       </h2>
-      {filteredTodos.filter(todo => todo.isActive).map((todo, index) => (
+      {todoStore.todos.filter((todo) => todo.isActive).map((todo, index) => (
         <TodoItem key={index} index={index} todo={todo} />
       ))}
 
       <h2 style={{ fontFamily: 'sans-serif', color: '#333', marginTop: '20px' }}>
         Неактивные задачи
       </h2>
-      {filteredTodos.filter(todo => !todo.isActive).map((todo, index) => (
+      {todoStore.todos.filter((todo) => !todo.isActive).map((todo, index) => (
         <TodoItem key={index} index={index} todo={todo} />
       ))}
     </div>
